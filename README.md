@@ -79,7 +79,7 @@ Baixe a versão desejada na seção **Releases** deste repositório:
 - **`Nord Kontakt Bridge Portable.exe`** — abre no Windows sem instalador e sem exigir Python.
 - **`Nord Kontakt Bridge Installer.exe`** — instala o programa com atalhos e opção de desinstalação.
 
-**Requisitos:** Windows, Kontakt 8 standalone instalado, arquivo de piano `.npno` compatível e decodificador `nord.exe` obtido separadamente. O Kontakt 8 e o decoder não acompanham o aplicativo. Se o decodificador não estiver configurado, a conversão poderá não funcionar.
+**Requisitos:** Windows, Kontakt 8 standalone instalado, arquivo de piano `.npno` compatível e decodificador. O Kontakt 8 não acompanha o aplicativo. Se o decodificador não estiver configurado, a conversão poderá não funcionar.
 
 Escolha um dos EXEs e execute-o. No primeiro uso, selecione seu arquivo Nord, o nome do instrumento, a pasta de destino e o caminho de `Kontakt 8.exe`.
 
@@ -154,7 +154,7 @@ Download the executable you prefer from this repository's **Releases** section:
 - **`Nord Kontakt Bridge Portable.exe`** — runs on Windows without installation or Python.
 - **`Nord Kontakt Bridge Installer.exe`** — installs the app, shortcuts and an uninstaller.
 
-**Requirements:** Windows, Kontakt 8 standalone, a compatible `.npno` piano file and the separately obtained `nord.exe` decoder. Kontakt 8 and the decoder are not bundled. Conversion may not work without a configured decoder.
+**Requirements:** Windows, Kontakt 8 standalone, a compatible `.npno` piano file and decoder. Kontakt 8 is not bundled. Conversion may not work without a configured decoder.
 
 Run either EXE. For your first conversion, select the Nord piano file, instrument name, output folder, and the `Kontakt 8.exe` path.
 
