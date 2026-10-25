@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "tabs": true,
+  "title": "SOUND / FX",
+  "labels": [
+    "REVERB",
+    "DELAY",
+    "CHORUS",
+    "EQ BRILHO",
+    "VOLUME",
+    "DINÂMICA",
+    "TUNE",
+    "PAN"
+  ],
+  "font_family": "Segoe UI",
+  "title_color": "#F4D4BD",
+  "label_color": "#EEE5E6",
+  "accent": "#E43A50",
+  "background": "#1D1118",
+  "knob_style": "Nord Red",
+  "layout": "3 colunas",
+  "reset_label": "REDEFINIR"
+}
