@@ -37,8 +37,6 @@ class DirectApp(tk.Tk):
         self.geometry('920x860')
         self.minsize(780, 710)
         self.configure(bg=BG)
-        self._window_icon = None
-        self._apply_window_icon()
         self.jobs = queue.Queue()
         self.busy = False
         self.prepared: Prepared | None = None
@@ -106,23 +104,6 @@ class DirectApp(tk.Tk):
                 'fx_design': self.collect_fx_design().to_dict(),
             }, indent=2, ensure_ascii=False), encoding='utf-8')
         except OSError:
-            pass
-
-    def _apply_window_icon(self):
-        """Usa o ícone do projeto na janela principal em vez do ícone padrão do sistema."""
-        assets = installed_assets_dir()
-        ico = assets / 'NordBridge.ico'
-        png = assets / 'default_icon.png'
-        try:
-            if ico.is_file():
-                self.iconbitmap(default=str(ico))
-        except Exception:
-            pass
-        try:
-            if png.is_file():
-                self._window_icon = tk.PhotoImage(file=str(png))
-                self.iconphoto(True, self._window_icon)
-        except Exception:
             pass
 
     def _label(self, parent, text, hint=''):

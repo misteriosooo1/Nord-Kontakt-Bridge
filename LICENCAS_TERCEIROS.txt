@@ -29,6 +29,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-OBS: Este pacote publica somente os executáveis do Nord Kontakt Bridge e a documentação.
-O decodificador Nord externo não está incluído aqui. As bibliotecas incorporadas
-aos executáveis podem possuir licenças próprias.
+OBS: o decoder nao e redistribuido no codigo-fonte deste ZIP. Os scripts
+Windows instalam/compilam a ferramenta separadamente, a pedido do usuario.
+Outras dependencias Python possuem suas proprias licencas distribuidas
+nas respectivas distribuicoes instaladas.

@@ -13,10 +13,9 @@ class BrandingTests(unittest.TestCase):
         self.assertNotIn('v0.7.2', source)
 
     def test_compilation_output_brand(self):
-        source = (ROOT / 'build_windows.py').read_text(encoding='utf-8')
-        self.assertIn("'--name', APP_NAME", source)
-        self.assertIn("PORTABLE = DIST / 'Nord Kontakt Bridge Portable.exe'", source)
-        self.assertIn("INSTALLER = DIST / 'Nord Kontakt Bridge Installer.exe'", source)
+        source = (ROOT / 'CRIAR_EXE.pyw').read_text(encoding='utf-8')
+        self.assertIn("'--name', 'Nord Kontakt Bridge'", source)
+        self.assertIn('dist/Nord Kontakt Bridge.exe', source)
         self.assertTrue((ROOT / 'Nord Kontakt Bridge.pyw').is_file())
         for mod in ['CRIAR_EXE.pyw', 'Nord Kontakt Bridge.pyw', 'nordbridge/direct_gui.py']:
             ast.parse((ROOT / mod).read_text(encoding='utf-8'))
