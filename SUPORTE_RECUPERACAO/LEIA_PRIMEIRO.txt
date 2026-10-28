@@ -1,0 +1,9 @@
+Nord Kontakt Bridge — Suporte
+
+Verificação/reparo: VERIFICAR.bat / REPARAR.bat
+
+Documentação: DOCUMENTACAO\ORGANIZACAO_DOS_ARQUIVOS.md
+
+Compilação Windows: FERRAMENTAS_COMPILACAO\GERAR_PORTABLE_E_INSTALLER.bat
+
+NKR, imagens e KSP principais permanecem na raiz do projeto.

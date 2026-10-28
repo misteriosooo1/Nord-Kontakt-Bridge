@@ -2,6 +2,10 @@
 
 > **As explicações deste guia estão também DENTRO DO PROGRAMA**, logo abaixo de cada campo das abas 01 Conversão, 02 Identidade Visual e 03 Editor FX. Este ZIP contém o aplicativo real, não uma prévia HTML.
 
+## Instalação Windows — Portable e Installer
+
+**Para instalar sem configurar Python, Rust ou Cargo**, use o pacote de instalação gerado com `SUPORTE_RECUPERACAO/FERRAMENTAS_COMPILACAO/GERAR_PORTABLE_E_INSTALLER.bat` (compilação somente no Windows). O projeto acompanha `bin/nord.exe`; o Portable incorpora o decoder e o Installer instala uma cópia em `bin`. Leia `SUPORTE_RECUPERACAO/DOCUMENTACAO/INSTALADOR_LEIA_PRIMEIRO.md` para compilar localmente ou via GitHub Actions.
+
 ## Correção da roda do mouse no Editor FX
 
 - A roda do mouse agora rola a aba **03 EDITOR FX** mesmo quando o ponteiro está sobre textos de ajuda, campos, botões ou sobre a prévia visual.
@@ -21,7 +25,7 @@ Este programa prepara instrumentos **.nki para o Kontakt 8** a partir de arquivo
 
 1. Extraia o ZIP para uma pasta do computador. Não execute o aplicativo diretamente de dentro do ZIP.
 2. Instale Python e Pillow, se for executar a versão `.pyw`. O arquivo `requirements.txt` contém a dependência Python do aplicativo. Para decodificação, disponibilize o `nord.exe` do nord-cli compatível conforme a configuração do projeto. Tenha o Kontakt 8 standalone instalado e suas opções de desenvolvedor configuradas conforme necessário.
-3. Dê dois cliques em **`Nord Kontakt Bridge.pyw`**. Se preferir um executável, use **`CRIAR_EXE.pyw`** no próprio Windows para compilar; a pasta original não contém um `.exe` do Windows pronto.
+3. Dê dois cliques em **`Nord Kontakt Bridge.pyw`**. Se preferir um executável, use **`SUPORTE_RECUPERACAO/FERRAMENTAS_COMPILACAO/CRIAR_EXE.pyw`** no próprio Windows para compilar; a pasta original não contém um `.exe` do Windows pronto.
 4. Na aba **01 CONVERSÃO**, escolha seu `.npno` Nord, **digite o nome do instrumento**, **selecione a pasta de saída** (o campo começa vazio) e **selecione o arquivo `Kontakt 8.exe`** da instalação.
 5. Opcionalmente escolha seu KSP pessoal. A opção de adicionar efeitos automáticos é **recomendada** e não exige conhecimento de KSP.
 6. Na aba **02 IDENTIDADE VISUAL**, você pode selecionar wallpaper, ícone e capa da biblioteca; **todos começam vazios** e são opcionais. Se não escolher wallpaper/ícone, o aplicativo usa os recursos visuais padrão. A opção correspondente vem marcada e bloqueada para impedir que fique sem esses padrões.
@@ -32,7 +36,7 @@ Este programa prepara instrumentos **.nki para o Kontakt 8** a partir de arquivo
 
 ## Limitação importante do arquivo NKR
 
-**O ZIP fornecido para esta edição NÃO contém nenhum arquivo `.nkr` válido.** Logo, não é correto informar que ele já vem incluído nesta distribuição. Não criei um `.nkr` falso. Caso queira distribuir um `.nkr` verdadeiro junto com o programa, será necessário fornecer um arquivo válido criado pelo Kontakt e respeitar os direitos dos recursos nele contidos. Enquanto isso, a interface orienta o usuário a selecionar um modelo de projeto próprio ou a utilizar os mecanismos existentes de fallback. Alguns recursos gráficos dependem de o Kontakt conseguir criar ou reconhecer seu Resource Container.
+**Este pacote contém `NKR GERAL.nkr` fornecido pelo autor.** O modelo é incluído na pasta `resources` do instalador, mas ainda precisa ser selecionado ou reconhecido pelo fluxo do Kontakt conforme necessário. A presença do arquivo não garante a criação/vinculação automática de recursos sem erros. Use apenas arquivos sobre os quais possua direitos de distribuição. Alguns recursos gráficos dependem de o Kontakt conseguir criar ou reconhecer seu Resource Container.
 
 ## Campos obrigatórios e opcionais
 
@@ -84,7 +88,7 @@ O programa continua gerando os WAVs em Samples e scripts KSP/Lua na pasta final,
 
 ## Como executar
 
-Extraia o ZIP, dê duplo clique em `Nord Kontakt Bridge.pyw` (Python com Pillow instalado), escolha o .npno, Kontakt 8.exe e destino; personalize as imagens na aba Identidade Visual e converta. Feche o Kontakt antes de iniciar a conversão. Opcionalmente use `CRIAR_EXE.pyw` para compilar EXE no Windows (requer PyInstaller).
+Extraia o ZIP, dê duplo clique em `Nord Kontakt Bridge.pyw` (Python com Pillow instalado), escolha o .npno, Kontakt 8.exe e destino; personalize as imagens na aba Identidade Visual e converta. Feche o Kontakt antes de iniciar a conversão. Opcionalmente use `SUPORTE_RECUPERACAO/FERRAMENTAS_COMPILACAO/CRIAR_EXE.pyw` para compilar EXE no Windows (requer PyInstaller).
 
 ---
 
@@ -175,7 +179,7 @@ A conversão e os efeitos continuam automáticos; o Kontakt precisa executar o L
 4. Feche o Kontakt e clique em **CONVERTER PARA NKI**.
 5. Verifique `NOME/NOME.nki` e `NOME/Samples/*.wav`, abra o NKI e toque.
 
-`CRIAR_EXE.pyw` pode compilar no Windows sem arquivo BAT. Não há EXE Windows pré-compilado no ZIP.
+`SUPORTE_RECUPERACAO/FERRAMENTAS_COMPILACAO/CRIAR_EXE.pyw` pode compilar no Windows sem arquivo BAT. Não há EXE Windows pré-compilado no ZIP.
 
 **Como corrigir um NKI anterior que pediu WAVs:** na janela Content Missing do Kontakt, clique **Browse for folder**, escolha a pasta `%LOCALAPPDATA%\NordKontaktBridge\Work\<id>\Samples`, abra o instrumento e faça **Save as → Patch + Samples**, indicando a pasta final desejada. Não apague o cache até salvar e reabrir sem aviso.
 

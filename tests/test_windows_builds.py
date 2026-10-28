@@ -1,10 +1,13 @@
 """Regressão da preparação dos dois executáveis Windows."""
 import ast
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT / 'SUPORTE_RECUPERACAO' / 'FERRAMENTAS_COMPILACAO'
+sys.path.insert(0, str(TOOLS))
 
 class WindowsBuildTests(unittest.TestCase):
     def test_windows_output_names_and_branding(self):
@@ -19,7 +22,7 @@ class WindowsBuildTests(unittest.TestCase):
         self.assertIn('assets', ' '.join(b.pyinstaller_command()))
 
     def test_inno_installer_includes_uninstaller_and_shortcuts(self):
-        s = (ROOT / 'Nord Kontakt Bridge Installer.iss').read_text(encoding='utf-8')
+        s = (TOOLS / 'Nord Kontakt Bridge Installer.iss').read_text(encoding='utf-8')
         for token in ('AppName=Nord Kontakt Bridge', 'AppVerName=Nord Kontakt Bridge',
                       'OutputBaseFilename=Nord Kontakt Bridge Installer',
                       'PrivilegesRequired=lowest', 'UninstallDisplayName=', '[Icons]',
@@ -27,13 +30,13 @@ class WindowsBuildTests(unittest.TestCase):
             self.assertIn(token, s)
 
     def test_scripts_parse(self):
-        for name in ['build_windows.py', 'CRIAR_EXE.pyw', 'Nord Kontakt Bridge.pyw']:
-            ast.parse((ROOT / name).read_text(encoding='utf-8'))
+        for name in [TOOLS / 'build_windows.py', TOOLS / 'CRIAR_EXE.pyw', ROOT / 'Nord Kontakt Bridge.pyw']:
+            ast.parse(name.read_text(encoding='utf-8'))
 
     def test_workflow_generates_both(self):
         s = (ROOT / '.github/workflows/build-windows.yml').read_text(encoding='utf-8')
         self.assertIn('runs-on: windows-latest', s)
-        self.assertIn('build_windows.py ambos', s)
+        self.assertIn('FERRAMENTAS_COMPILACAO/build_windows.py ambos', s)
         self.assertIn('Nord Kontakt Bridge Portable.exe', s)
         self.assertIn('Nord Kontakt Bridge Installer.exe', s)
 

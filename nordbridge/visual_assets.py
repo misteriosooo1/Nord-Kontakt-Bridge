@@ -10,8 +10,23 @@ from pathlib import Path
 
 
 def installed_assets_dir() -> Path:
-    bundle = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parents[1]))
-    return bundle / 'assets'
+    """Recursos empacotados primeiro; copia offline se o pacote estiver incompleto."""
+    executable_dir = Path(sys.executable).resolve().parent
+    project_dir = Path(__file__).resolve().parents[1]
+    bundle = Path(getattr(sys, '_MEIPASS', project_dir))
+    required = ('default_icon.png', 'default_wallpaper.png', 'hero_red.png')
+    candidates = (
+        bundle / 'assets',
+        executable_dir / 'assets',
+        project_dir / 'assets',
+        executable_dir / 'SUPORTE_RECUPERACAO' / 'assets',
+        bundle / 'SUPORTE_RECUPERACAO' / 'assets',
+        project_dir / 'SUPORTE_RECUPERACAO' / 'assets',
+    )
+    for folder in candidates:
+        if all((folder / name).is_file() for name in required):
+            return folder
+    return candidates[0]
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,70 @@
+NORD KONTAKT BRIDGE | SUPORTE E RECUPERACAO OFFLINE
+===================================================
+
+PARA QUE SERVE ESTA PASTA?
+Esta pasta guarda copias de arquivos importantes do Nord Kontakt Bridge.
+Foi criada para resolver problemas de arquivo ausente, especialmente
+"bin\nord.exe", sem instalar Rust, Cargo ou Python no PC do usuario.
+
+ARQUIVOS INCLUIDOS
+- bin\nord.exe: ferramenta de linha de comando que interpreta arquivos Nord.
+- assets\: imagens e icone padrao do aplicativo.
+- resources\NKR GERAL.nkr: copia do recurso NKR fornecido com o projeto.
+- PRESETS_FX\: presets visuais usados no desenvolvimento.
+- LICENCAS_TERCEIROS.txt: aviso de licenca da ferramenta nord-cli.
+- CHECKSUMS_SHA256.txt: identificadores para verificar a integridade das copias.
+- VERIFICAR.bat: gera diagnostico sem mudar nenhum arquivo.
+- REPARAR.bat: copia arquivos ausentes para perto do executavel.
+- suporte.ps1: rotina local usada pelos dois arquivos .bat.
+
+COMO USAR COM SEU EXE QUE JA EXISTE (SEM RECOMPILAR)
+1. COPIE toda a pasta SUPORTE_RECUPERACAO para o diretorio onde fica
+   seu "Nord Kontakt Bridge.exe" ou "Nord Kontakt Bridge Portable.exe".
+   Exemplo:
+     Meu Programa\Nord Kontakt Bridge.exe
+     Meu Programa\SUPORTE_RECUPERACAO\REPARAR.bat
+2. Feche o Nord Kontakt Bridge.
+3. Clique em SUPORTE_RECUPERACAO\VERIFICAR.bat.
+   O verificador mostra o que falta e salva um relatorio em
+   %LOCALAPPDATA%\NordKontaktBridge\Diagnosticos.
+4. Se houver arquivos ausentes, execute SUPORTE_RECUPERACAO\REPARAR.bat.
+   Ele preenche as pastas bin, assets e resources, sem apagar seu EXE.
+5. Abra seu aplicativo novamente.
+
+SE O EXE ESTIVER EM OUTRA PASTA
+Execute VERIFICAR.bat ou REPARAR.bat e, quando solicitado, cole o
+caminho da pasta do programa OU do arquivo EXE principal.
+Os scripts nao se conectam a internet nem instalam linguagens.
+Se a instalacao estiver em Program Files, podem ser necessarias
+permissoes de administrador para gravar na pasta.
+
+FALLBACK AUTOMATICO (SOMENTE NOVAS COMPILACOES)
+O codigo-fonte desta entrega tambem foi atualizado: ao procurar
+nord.exe, tenta bin\nord.exe e depois SUPORTE_RECUPERACAO\bin\nord.exe.
+Se o decoder principal falhar ao INICIAR, tenta o executavel reserva.
+Os recursos visuais podem ser recuperados da pasta de suporte quando
+os arquivos padrao nao estiverem acessiveis no pacote.
+
+IMPORTANTE: seu EXE atual NAO E ALTERADO por simplesmente copiar a pasta.
+Para usar a logica de fallback automatico, sera necessario recompilar
+uma nova versao com os arquivos Python atualizados. Para o EXE atual,
+o REPARAR.bat resolve os casos de arquivos externos ausentes ao recoloca-los
+nos caminhos que o programa ja procura (como bin\nord.exe).
+
+O QUE ESTA PASTA NAO RESOLVE
+- Bugs no codigo ja compilado, erros de KSP/Lua e problemas do Kontakt 8.
+- Formatacao incorreta ou arquivo de entrada Nord nao suportado.
+- DLLs externas do Windows ou arquivos de sample que nao acompanham o projeto.
+- A copia do NKR NAO garante que o Kontakt reconhecera imagens/painel.
+  Se necessario, selecione o NKR manualmente no app e confirme no Kontakt.
+- Nao coloca Rust/Cargo/Python no PC: no EXE PyInstaller, Python ja deve
+  vir empacotado. nord.exe e um binario Rust independente do compilador.
+
+SEGURANCA E PRESERVACAO
+- Nao substitui o executavel principal.
+- Nao sobrescreve arquivos modificados automaticamente.
+- O utilitario pede confirmacao antes de substituir o decoder que falhou.
+- Guarda um relatorio para facilitar identificacao do problema.
+- Preserve LICENCAS_TERCEIROS.txt junto do produto distribuido.
+
+Arquivos e instrucoes preparados para Windows 10/11.

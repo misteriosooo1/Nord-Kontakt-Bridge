@@ -1,0 +1,1 @@
+Imagens de exemplo. Botao final sera gerado durante conversao e entra em Resources\pictures com seu TXT.\nSe usar um botão com arte própria, forneça PNG sem texto, e escolha o texto no aplicativo.\nO marcador do Library Manager é criado apenas na pasta final do instrumento, não neste projeto.\n

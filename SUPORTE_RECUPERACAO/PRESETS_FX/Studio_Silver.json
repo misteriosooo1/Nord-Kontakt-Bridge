@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "tabs": true,
+  "title": "PIANO EFFECTS",
+  "labels": [
+    "REVERB",
+    "DELAY",
+    "CHORUS",
+    "EQ BRILHO",
+    "VOLUME",
+    "DINÂMICA",
+    "TUNE",
+    "PAN"
+  ],
+  "font_family": "Consolas",
+  "title_color": "#F0F0F2",
+  "label_color": "#D8DBE2",
+  "accent": "#BBC6D5",
+  "background": "#17191D",
+  "knob_style": "Prata",
+  "layout": "4 colunas",
+  "reset_label": "REDEFINIR"
+}

@@ -566,8 +566,8 @@ class DirectApp(tk.Tk):
             return
         if not find_decoder():
             messagebox.showerror('Decoder Nord ausente',
-                                 'Não encontrei nord.exe. Se você já instalou nord-cli, reinicie o programa.\n'
-                                 'Também pode copiar nord.exe para a pasta do aplicativo.\n'
+                                 'Não encontrei bin\\nord.exe na pasta do Nord Kontakt Bridge.\n'
+                                 'Reinstale o aplicativo ou verifique se o antivírus removeu o decoder.\n'
                                  'Não é necessário executar nenhum BAT.')
             return
         kontakt = Path(self.kontakt.get().strip())

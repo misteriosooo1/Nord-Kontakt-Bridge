@@ -78,19 +78,46 @@ def parse_keys(output: str) -> list[Key]:
     return result
 
 
-def find_nord_exe() -> Path | None:
-    """Consulta PATH, pasta do programa e cargo (sem executar binários desconhecidos)."""
+def find_nord_support_exe() -> Path | None:
+    """Busca somente a copia local de emergencia, nunca baixa executaveis."""
     executable_dir = Path(sys.executable).resolve().parent
     project_dir = Path(__file__).resolve().parents[1]
-    frozen_dir = Path(getattr(sys, "_MEIPASS", executable_dir))
+    bundle_dir = Path(getattr(sys, '_MEIPASS', executable_dir))
+    for base in (executable_dir, bundle_dir, project_dir):
+        candidate = base / 'SUPORTE_RECUPERACAO' / 'bin' / 'nord.exe'
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def find_nord_exe() -> Path | None:
+    """Busca o decoder empacotado, instalado ou local (sem instalar Cargo).
+
+    Portable PyInstaller onefile: sys._MEIPASS/bin/nord.exe.
+    Installer Inno Setup: pasta do EXE/bin/nord.exe.
+    Desenvolvimento: projeto/bin/nord.exe.
+    Cargo/PATH continuam como compatibilidade para quem executa pelo Python.
+    """
+    executable_dir = Path(sys.executable).resolve().parent
+    project_dir = Path(__file__).resolve().parents[1]
+    bundle_dir = Path(getattr(sys, '_MEIPASS', executable_dir))
     candidates = [
-        frozen_dir / "nord.exe",
-        executable_dir / "nord.exe",
-        executable_dir / "nord",
-        project_dir / "nord.exe",
-        Path.home() / ".cargo" / "bin" / "nord.exe",
+        executable_dir / 'bin' / 'nord.exe',
+        bundle_dir / 'bin' / 'nord.exe',
+        project_dir / 'bin' / 'nord.exe',
     ]
-    which = shutil.which("nord")
+    # O suporte offline vem antes do Cargo, para nao depender de outra instalacao.
+    fallback = find_nord_support_exe()
+    if fallback is not None:
+        candidates.append(fallback)
+    # Compatibilidade com distribuicoes anteriores.
+    candidates.extend((
+        executable_dir / 'nord.exe',
+        bundle_dir / 'nord.exe',
+        project_dir / 'nord.exe',
+        Path.home() / '.cargo' / 'bin' / 'nord.exe',
+    ))
+    which = shutil.which('nord')
     if which:
         candidates.append(Path(which))
     return next((p for p in candidates if p.is_file()), None)
@@ -101,17 +128,32 @@ class NordCli:
         self.path = Path(executable) if executable else find_nord_exe()
         if not self.path or not self.path.is_file():
             raise RuntimeError(
-                "Decoder nord-cli não encontrado. Coloque nord.exe na pasta do programa "
-                "ou instale nord-cli 0.8.0 (cargo install nord-cli --version 0.8.0 --locked)."
+                "Decoder nord-cli não encontrado. Verifique se bin\\nord.exe "
+                "está junto do aplicativo ou reinstale o Nord Kontakt Bridge."
             )
 
     def run(self, *args: str, timeout: int = 180) -> str:
         flags = [str(self.path), "--color=never", *map(str, args)]
-        completed = subprocess.run(
-            flags, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            text=True, encoding="utf-8", errors="replace", timeout=timeout,
-            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-        )
+        def execute(command: list[str]):
+            return subprocess.run(
+                command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                text=True, encoding="utf-8", errors="replace", timeout=timeout,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+
+        try:
+            completed = execute(flags)
+        except OSError as exc:
+            # Se o decoder principal nao puder ser iniciado (arquivo danificado,
+            # acesso negado etc.), tente a copia offline. Erros de conversao
+            # (codigo de retorno diferente de zero) NAO sao encobertos.
+            fallback = find_nord_support_exe()
+            if not fallback or fallback.resolve() == self.path.resolve():
+                raise RuntimeError(f"Falha ao iniciar nord.exe: {exc}. Consulte SUPORTE_RECUPERACAO.") from exc
+            try:
+                completed = execute([str(fallback), '--color=never', *map(str, args)])
+            except OSError as backup_exc:
+                raise RuntimeError(f"Decoder principal e copia de recuperacao falharam: {backup_exc}") from backup_exc
         if completed.returncode:
             details = (completed.stderr or completed.stdout).strip()
             raise RuntimeError(f"nord-cli: {details[-1800:] or 'erro não especificado'}")

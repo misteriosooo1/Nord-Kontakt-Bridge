@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "tabs": true,
+  "title": "ASTORIA | FX",
+  "labels": [
+    "REVERB",
+    "DELAY",
+    "CHORUS",
+    "EQ BRILHO",
+    "VOLUME",
+    "DINÂMICA",
+    "TUNE",
+    "PAN"
+  ],
+  "font_family": "Georgia",
+  "title_color": "#F0D2A6",
+  "label_color": "#EADDCB",
+  "accent": "#CCA269",
+  "background": "#211712",
+  "knob_style": "Dourado",
+  "layout": "3 colunas",
+  "reset_label": "REDEFINIR"
+}
